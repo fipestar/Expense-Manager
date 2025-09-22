@@ -4,6 +4,7 @@ export type Category = {
 }
 
 export type Event = {
+    id: string
     category: number, 
     description: string,
     amount: number,

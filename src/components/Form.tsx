@@ -1,16 +1,26 @@
-import { useState } from "react"
+import { useState, type Dispatch, type ChangeEvent } from "react"
+import React from "react"
+import { v4 as uuidv4 } from "uuid"
 import { categories } from "../data"
 import type { Event } from "../types"
+import type { EventActions } from "../reducers/event-reducer"
 
-export default function Form() {
-    const [event, setEvent] = useState<Event>({
+type FormProps = {
+  dispatch: Dispatch<EventActions>
+}
+
+const initialState : Event = {
+        id: uuidv4(),
         category: 1,
         description: "",
         amount: 0,
         date: new Date()
-    })
+}
 
-    const handleChange = (e : React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+export default function Form({ dispatch }: FormProps) {
+    const [event, setEvent] = useState<Event>(initialState)
+
+    const handleChange = (e : ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { id, value } = e.target;
         
         // Verificar si el campo es numérico
@@ -24,19 +34,30 @@ export default function Form() {
         })
     }
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatch({type: 'save-event', payload: {newEvent: event}})
+        setEvent({
+          ...initialState,
+        id: uuidv4()})
+    }
+
     const isValidActivity = () => {
     const {description, amount} = event
     return description.trim() !== '' && amount > 0
   }
   return (
-    <form className="space-y-4 bg-white shadow p-10 rounded-lg">
+    <form 
+      className="space-y-4 bg-white shadow p-10 rounded-lg"
+      onSubmit={handleSubmit}>
       <div className="grid grid-cols-1 gap-4">
         <label htmlFor="category" className="font-bold">Categoría:</label>
         <select 
           className="border border-slate-300 p-2 rounded-lg w-full bg-white" 
           id="category"
           value={event.category}
-          onChange={handleChange}>
+          onChange={handleChange}
+          >
           {categories.map(category => (
             <option 
                 key={category.id}
@@ -84,7 +105,7 @@ export default function Form() {
       <input 
         type="submit"
         className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full cursor-pointer font-bold disabled:opacity-50"
-        value="Agregar Gasto"
+        value={event.category === 1 ? "Agregar Gasto" : "Agregar Ingreso"}
         disabled={!isValidActivity()} 
       />
     </form>

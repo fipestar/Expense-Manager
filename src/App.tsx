@@ -1,6 +1,9 @@
+import { useReducer } from "react"
 import Form from "./components/Form"
+import { eventReducer, initialState } from "./reducers/event-reducer"
 
 function App() {
+  const [state, dispatch] = useReducer(eventReducer, initialState)
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       {/* Header */}
@@ -20,7 +23,9 @@ function App() {
         </h2>
         {/* Aquí se importará el componente formulario */}
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center text-gray-500">
-          <Form />
+          <Form 
+           dispatch={dispatch}
+          />
         </div>
       </section>
 
