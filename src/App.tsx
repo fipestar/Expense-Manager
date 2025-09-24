@@ -1,6 +1,7 @@
 import { useReducer } from "react"
 import Form from "./components/Form"
 import { eventReducer, initialState } from "./reducers/event-reducer"
+import EventList from "./components/EventList"
 
 function App() {
   const [state, dispatch] = useReducer(eventReducer, initialState)
@@ -31,12 +32,9 @@ function App() {
 
       {/* Lista de Gastos Section */}
       <section className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Lista de Gastos
-        </h2>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center text-gray-500">
-          <p>La lista de gastos se mostrará aquí</p>
-        </div>
+        <EventList 
+          events={state.events}
+        />
       </section>
     </div>
   )
