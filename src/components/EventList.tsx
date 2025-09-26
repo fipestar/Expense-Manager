@@ -1,10 +1,18 @@
 import type { Event } from '../types';
+import { categories } from '../data';
+import { useMemo } from 'react';
+import { PencilSquareIcon } from '@heroicons/react/24/solid';
 
 type EventListProps = {
     events: Event[];    
 }
 
 export default function EventList({ events }: EventListProps) {
+
+  const getCategoryName = useMemo(() => 
+      (category: Event['category']) => categories.find(cat => cat.id === category)?.name || 'Sin categoría',
+      [categories]
+  )
   return (
     <>
       <h2 className="text-4xl font-bold text-slate-600 text-center mb-5">
@@ -15,7 +23,7 @@ export default function EventList({ events }: EventListProps) {
         <div key={event.id} className="bg-white p-5 rounded shadow mb-3 flex justify-between items-center">
           <div className="space-y-2 relative">
             <p className="text-slate-500 text-sm">
-              Categoría {event.category}
+              {getCategoryName(+event.category)}
             </p>
             <p className="text-2xl font-bold pt-5 text-gray-800">
               {event.description}
@@ -26,6 +34,12 @@ export default function EventList({ events }: EventListProps) {
                 {event.date.toLocaleDateString()}
               </span>
             </p>
+          </div>
+
+          <div className='flex gap-5 items-center'>
+            <button>
+              <PencilSquareIcon className="h-8 w-8 text-blue-500 hover:text-blue-600" />
+            </button>
           </div>
         </div>
       ))}

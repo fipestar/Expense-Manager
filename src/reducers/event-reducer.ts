@@ -1,15 +1,18 @@
 import type { Event } from "../types";
 
 export type EventActions = 
-    { type: 'save-event', payload: { newEvent: Event}}
+    { type: 'save-event', payload: { newEvent: Event}} |
+    { type: 'set-activeId', payload: { id: Event['id']}} 
 
 
 type EventState = {
-    events: Event[]
+    events: Event[],
+    activeId: Event['id']
 }
 
 export const initialState : EventState = {
-    events: []
+    events: [],
+    activeId: ''
 }
 
 export const eventReducer = (
@@ -22,6 +25,13 @@ export const eventReducer = (
             ...state,
             events: [...state.events, action.payload.newEvent]
         }
+    }
+
+    if(action.type === 'set-activeId') {
+     return {
+        ...state,
+        activeId: action.payload.id
+     }
     }
 
     return state
