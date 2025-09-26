@@ -26,6 +26,7 @@ function App() {
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center text-gray-500">
           <Form 
            dispatch={dispatch}
+           state={state}
           />
         </div>
       </section>
@@ -34,6 +35,7 @@ function App() {
       <section className="bg-white rounded-lg shadow-md p-6">
         <EventList 
           events={state.events}
+          dispatch={dispatch}
         />
       </section>
     </div>

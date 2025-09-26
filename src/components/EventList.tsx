@@ -1,13 +1,15 @@
 import type { Event } from '../types';
 import { categories } from '../data';
-import { useMemo } from 'react';
+import { useMemo, type Dispatch } from 'react';
 import { PencilSquareIcon } from '@heroicons/react/24/solid';
+import type { EventActions } from '../reducers/event-reducer';
 
 type EventListProps = {
-    events: Event[];    
+    events: Event[],
+    dispatch: Dispatch<EventActions>   
 }
 
-export default function EventList({ events }: EventListProps) {
+export default function EventList({ events, dispatch }: EventListProps) {
 
   const getCategoryName = useMemo(() => 
       (category: Event['category']) => categories.find(cat => cat.id === category)?.name || 'Sin categoría',
@@ -37,7 +39,9 @@ export default function EventList({ events }: EventListProps) {
           </div>
 
           <div className='flex gap-5 items-center'>
-            <button>
+            <button
+             onClick={() => dispatch({type: 'set-activeId', payload: {id: event.id}})}
+            >
               <PencilSquareIcon className="h-8 w-8 text-blue-500 hover:text-blue-600" />
             </button>
           </div>

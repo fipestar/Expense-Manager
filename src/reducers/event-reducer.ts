@@ -5,7 +5,7 @@ export type EventActions =
     { type: 'set-activeId', payload: { id: Event['id']}} 
 
 
-type EventState = {
+export type EventState = {
     events: Event[],
     activeId: Event['id']
 }
@@ -21,9 +21,16 @@ export const eventReducer = (
 ) => {
 
     if(action.type === 'save-event') {
+        let updatedEvents : Event[] = []
+        if(state.activeId) {
+            updatedEvents = state.events.map( event => event.id === state.activeId ? action.payload.newEvent : event)
+        } else {
+            updatedEvents = [...state.events, action.payload.newEvent]
+        }
         return {
             ...state,
-            events: [...state.events, action.payload.newEvent]
+            events: updatedEvents,
+            activeId: ''
         }
     }
 

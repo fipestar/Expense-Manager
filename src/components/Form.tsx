@@ -1,12 +1,13 @@
-import { useState, type Dispatch, type ChangeEvent } from "react"
+import { useState, type Dispatch, type ChangeEvent, useEffect } from "react"
 import React from "react"
 import { v4 as uuidv4 } from "uuid"
 import { categories } from "../data"
 import type { Event } from "../types"
-import type { EventActions } from "../reducers/event-reducer"
+import type { EventActions, EventState } from "../reducers/event-reducer"
 
 type FormProps = {
   dispatch: Dispatch<EventActions>
+  state: EventState
 }
 
 const initialState : Event = {
@@ -17,8 +18,15 @@ const initialState : Event = {
         date: new Date()
 }
 
-export default function Form({ dispatch }: FormProps) {
+export default function Form({ dispatch, state }: FormProps) {
     const [event, setEvent] = useState<Event>(initialState)
+
+    useEffect(() => {
+      if(state.activeId){
+        const selectedEvent = state.events.filter(stateEvent => stateEvent.id === state.activeId)[0]
+        setEvent(selectedEvent)
+      }
+    }, [state.activeId])
 
     const handleChange = (e : ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { id, value } = e.target;
