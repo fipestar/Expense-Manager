@@ -1,69 +1,105 @@
-# React + TypeScript + Vite
+# 💰 Gestor de Gastos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación moderna y elegante para el control de finanzas personales, desarrollada con React, TypeScript y Tailwind CSS.
 
-Currently, two official plugins are available:
+## 📋 Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ✅ **Persistencia de datos** en localStorage
+- ✅ **Resumen financiero** con totales y balance automático
+- ✅ **Edición y eliminación** de transacciones
+- ✅ **Interfaz responsiva** optimizada para móvil y desktop
+- ✅ **Diseño moderno** con gradientes y animaciones suaves
+- ✅ **Validación de formularios** en tiempo real
+- ✅ **Formato de moneda colombiana** automático
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologías Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 18** - Biblioteca de interfaz de usuario
+- **TypeScript** - Tipado estático para JavaScript
+- **Tailwind CSS** - Framework de CSS utilitario
+- **Vite** - Herramienta de desarrollo rápida
+- **Heroicons** - Iconos SVG elegantes
+- **UUID** - Generación de identificadores únicos
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Estructura del Proyecto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/           # Componentes React
+│   ├── Form.tsx         # Formulario de registro
+│   ├── EventList.tsx    # Lista de transacciones
+│   ├── BillsTracker.tsx # Resumen de totales
+│   └── BillsDisplay.tsx # Display de montos
+├── reducers/            # Gestión de estado
+│   └── event-reducer.ts # Reducer principal
+├── types/               # Definiciones TypeScript
+│   └── index.ts        # Tipos de la aplicación
+├── data/               # Datos estáticos
+│   └── index.ts       # Categorías predefinidas
+└── App.tsx            # Componente principal
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🎯 Funcionalidades Detalladas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 📊 Gestión de Transacciones
+- **Campos requeridos**: Descripción, monto y fecha
+- **Validación automática**: El botón se habilita solo con datos válidos
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 💾 Persistencia de Datos
+- **Almacenamiento local**: Los datos se guardan automáticamente
+- **Recuperación al iniciar**: La aplicación carga los datos previos
+- **Manejo de fechas**: Conversión automática entre string y Date
+
+### 🎨 Interfaz de Usuario
+- **Diseño responsivo**: Funciona en móvil, tablet y desktop
+- **Gradientes modernos**: Colores elegantes y profesionales
+- **Animaciones suaves**: Transiciones CSS para mejor UX
+- **Iconografía consistente**: Heroicons para todas las acciones
+
+### 📈 Resumen Financiero
+- **Total de gastos**: Suma automática de todas las salidas
+- **Total de ingresos**: Suma automática de todas las entradas  
+- **Balance neto**: Cálculo automático del saldo disponible
+- **Códigos de color**: Rojo para gastos, verde para ingresos
+
+## 🔧 Scripts Disponibles
+
+```bash
+# Desarrollo
+npm run dev          # Inicia el servidor de desarrollo
+
+# Construcción
+npm run build        # Construye la aplicación para producción
+npm run preview      # Vista previa de la construcción
+
+# Linting
+npm run lint         # Ejecuta ESLint para revisar el código
+
 ```
+
+## 🎨 Paleta de Colores
+
+- **Primario**: Azul (#4F46E5) - Botones principales
+- **Secundario**: Púrpura (#7C3AED) - Gradientes
+- **Gastos**: Rojo (#DC2626) - Indicadores de salida
+- **Ingresos**: Verde (#16A34A) - Indicadores de entrada
+- **Neutral**: Grises - Textos y fondos
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Para cambios importantes:
+
+1. Haz fork del proyecto
+2. Crea una rama para tu característica (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+
+## 👨‍💻 Autor
+
+**fipestar** - [GitHub](https://github.com/fipestar)
