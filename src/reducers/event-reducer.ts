@@ -2,7 +2,9 @@ import type { Event } from "../types";
 
 export type EventActions = 
     { type: 'save-event', payload: { newEvent: Event}} |
-    { type: 'set-activeId', payload: { id: Event['id']}} 
+    { type: 'set-activeId', payload: { id: Event['id']}} |
+    { type: 'delete-activity', payload: { id: Event['id']}} |
+    { type: 'restart-app'}
 
 
 export type EventState = {
@@ -10,8 +12,20 @@ export type EventState = {
     activeId: Event['id']
 }
 
+const localStorageEvents = () : Event[] => {
+    const events = localStorage.getItem('events')
+    if (!events) return []
+    
+    const parsedEvents = JSON.parse(events)
+    // Convertir las fechas de string a Date objects
+    return parsedEvents.map((event: Event) => ({
+        ...event,
+        date: new Date(event.date)
+    }))
+}
+
 export const initialState : EventState = {
-    events: [],
+    events: localStorageEvents(),
     activeId: ''
 }
 
@@ -39,6 +53,20 @@ export const eventReducer = (
         ...state,
         activeId: action.payload.id
      }
+    }
+
+    if(action.type === 'delete-activity') {
+        return{
+            ...state,
+            events: state.events.filter( event => event.id !== action.payload.id)
+        }
+    }
+
+    if(action.type === 'restart-app') {
+        return {
+            events: [],
+            activeId: ''
+        }
     }
 
     return state

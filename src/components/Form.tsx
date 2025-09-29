@@ -56,16 +56,17 @@ export default function Form({ dispatch, state }: FormProps) {
   }
   return (
     <form 
-      className="space-y-4 bg-white shadow p-10 rounded-lg"
+      className="space-y-6"
       onSubmit={handleSubmit}>
-      <div className="grid grid-cols-1 gap-4">
-        <label htmlFor="category" className="font-bold">Categoría:</label>
-        <select 
-          className="border border-slate-300 p-2 rounded-lg w-full bg-white" 
-          id="category"
-          value={event.category}
-          onChange={handleChange}
-          >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <label htmlFor="category" className="block text-sm font-semibold text-gray-700">Categoría</label>
+          <select 
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white shadow-sm" 
+            id="category"
+            value={event.category}
+            onChange={handleChange}
+            >
           {categories.map(category => (
             <option 
                 key={category.id}
@@ -74,48 +75,50 @@ export default function Form({ dispatch, state }: FormProps) {
             </select>
       </div>
 
-      <div className="grid grid-cols-1 gap-4">
-        <label htmlFor="description" className="font-bold">Descripción:</label>
+        <div className="space-y-2">
+          <label htmlFor="amount" className="block text-sm font-semibold text-gray-700">Monto</label>
+          <input 
+            id="amount"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 shadow-sm"
+            type="number"
+            placeholder="0.00"
+            step="0.01"
+            value={event.amount}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="description" className="block text-sm font-semibold text-gray-700">Descripción</label>
         <input 
           id="description"
-          className="border border-slate-300 p-2 rounded-lg w-full bg-white"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 shadow-sm"
           type="text"
-          placeholder="Ej. Almuerzo, Gasolina, Cine, Medicinas"
+          placeholder="Describe tu gasto o ingreso"
           value={event.description}
           onChange={handleChange}
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-4">
-        <label htmlFor="amount" className="font-bold">Monto:</label>
-        <input 
-          id="amount"
-          className="border border-slate-300 p-2 rounded-lg w-full bg-white"
-          type="number"
-          placeholder="Ej. 150, 50, 300"
-          step="0.01"
-          value={event.amount}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="grid grid-cols-1 gap-4">
-        <label htmlFor="date" className="font-bold">Fecha:</label>
+      <div className="space-y-2">
+        <label htmlFor="date" className="block text-sm font-semibold text-gray-700">Fecha</label>
         <input 
           id="date"
-          className="border border-slate-300 p-2 rounded-lg w-full bg-white"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 shadow-sm"
           type="date"
           value={event.date.toISOString().split("T")[0]}
           onChange={handleChange}
         />
       </div>
 
-      <input 
+      <button 
         type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded-lg w-full cursor-pointer font-bold disabled:opacity-50"
-        value={event.category === 1 ? "Agregar Gasto" : "Agregar Ingreso"}
-        disabled={!isValidActivity()} 
-      />
+        className="w-full py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+        disabled={!isValidActivity()}
+      >
+        {event.category === 1 ? "Agregar Gasto" : "Agregar Ingreso"}
+      </button>
     </form>
   )
 }
